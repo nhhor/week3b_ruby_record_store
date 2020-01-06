@@ -13,8 +13,20 @@ get('/') do
 end
 
 get('/albums') do
-  @albums = Album.all
+
+  if params["search"]
+    @albums = Album.search(params[:search])
+  elsif params["sort"]
+    @albums = Album.sort()
+  else
+    @albums = Album.all
+  end
   erb(:albums)
+
+
+
+  # @albums = Album.all
+  # erb(:albums)
 end
 
 get ('/albums/new') do

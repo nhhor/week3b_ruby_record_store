@@ -15,8 +15,21 @@ class Album
       id = album.fetch("id").to_i
       albums.push(Album.new({:name => name, :id => id}))
     end
-    albums
+    albums.sort_by { |album| [album.name] }
   end
+
+  def self.search(query)
+    returned_albums = DB.exec("SELECT * FROM albums WHERE name LIKE '%#{query}%';")
+    albums = []
+    returned_albums.each() do |album|
+      name = album.fetch("name")
+      id = album.fetch("id").to_i
+      albums.push(Album.new({:name => name, :id => id}))
+    end
+    albums.sort_by { |album| [album.name] }
+  end
+
+
 
   def save
     result = DB.exec("INSERT INTO albums (name) VALUES ('#{@name}') RETURNING id;")
