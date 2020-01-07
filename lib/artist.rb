@@ -85,7 +85,7 @@ class Artist
     results.each() do |result|
       result_id_array.push(result.values)
     end
-    query_of_ids =  DB.exec("SELECT * FROM albums WHERE id = #{result_id_array.join(" OR id = ")};")
+    query_of_ids =  DB.exec("SELECT * FROM albums WHERE id IN (#{result_id_array.join(", ")});")
     query_of_ids.each() do |query|
       album_id = query.fetch("id").to_i()
       name = query.fetch("name")

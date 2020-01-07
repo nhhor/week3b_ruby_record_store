@@ -2,51 +2,51 @@ require 'spec_helper'
 
 describe '#Artist' do
 
-  # describe('.all') do
-  #   it("returns an empty array when there are no albums") do
-  #     expect(Album.all).to(eq([]))
-  #   end
-  # end
-  #
-  # describe('#save') do
-  #   it("saves an album") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     album2 = Album.new({:name => "Blue", :id => nil})
-  #     album2.save()
-  #     expect(Album.all).to(eq([album, album2]))
-  #   end
-  # end
-  #
-  # describe('.clear') do
-  #   it("clears all albums") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     album2 = Album.new({:name => "Blue", :id => nil})
-  #     album2.save()
-  #     Album.clear
-  #     expect(Album.all).to(eq([]))
-  #   end
-  # end
-  #
-  # describe('#==') do
-  #   it("is the same album if it has the same attributes as another album") do
-  #     album = Album.new({:name => "Blue", :id => nil})
-  #     album2 = Album.new({:name => "Blue", :id => nil})
-  #     expect(album).to(eq(album2))
-  #   end
-  # end
-  #
-  # describe('.find') do
-  #   it("finds an album by id") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     album2 = Album.new({:name => "Blue", :id => nil})
-  #     album2.save()
-  #     expect(Album.find(album.id)).to(eq(album))
-  #   end
-  # end
-  #
+  describe('.all') do
+    it("returns an empty array when there are no albums") do
+      expect(Artist.all).to(eq([]))
+    end
+  end
+
+  describe('#save') do
+    it("saves an artist") do
+      artist = Artist.new({:name => "A Love Supreme", :id => nil})
+      artist.save()
+      artist2 = Artist.new({:name => "Blue", :id => nil})
+      artist2.save()
+      expect(Artist.all).to(eq([artist, artist2]))
+    end
+  end
+
+  describe('.clear') do
+    it("clears all artists") do
+      artist = Artist.new({:name => "A Love Supreme", :id => nil})
+      artist.save()
+      artist2 = Artist.new({:name => "Blue", :id => nil})
+      artist2.save()
+      Artist.clear
+      expect(Artist.all).to(eq([]))
+    end
+  end
+
+  describe('#==') do
+    it("is the same artist if it has the same attributes as another artist") do
+      artist = Artist.new({:name => "Blue", :id => nil})
+      artist2 = Artist.new({:name => "Blue", :id => nil})
+      expect(artist).to(eq(artist2))
+    end
+  end
+
+  describe('.find') do
+    it("finds an artist by id") do
+      artist = Artist.new({:name => "A Love Supreme", :id => nil})
+      artist.save()
+      artist2 = Artist.new({:name => "Blue", :id => nil})
+      artist2.save()
+      expect(Artist.find(artist.id)).to(eq(artist))
+    end
+  end
+
   describe('#update') do
     it("adds an album to an artist") do
       artist = Artist.new({:name => "John Coltrane", :id => nil})
@@ -73,27 +73,27 @@ describe '#Artist' do
       expect(artist.albums).to(eq([album, album3]))
     end
   end
-  #
-  # describe('#delete') do
-  #   it("deletes an album by id") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     album2 = Album.new({:name => "Blue", :id => nil})
-  #     album2.save()
-  #     album.delete()
-  #     expect(Album.all).to(eq([album2]))
-  #   end
-  # end
-  #
-  # describe('#songs') do
-  #   it("returns an album's songs") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     song = Song.new({:name => "Naima", :album_id => album.id, :id => nil})
+
+  describe('#delete') do
+    it("deletes an artist by id") do
+      artist = Artist.new({:name => "A Love Supreme", :id => nil})
+      artist.save()
+      artist2 = Artist.new({:name => "Blue", :id => nil})
+      artist2.save()
+      artist.delete()
+      expect(Artist.all).to(eq([artist2]))
+    end
+  end
+
+  # describe('#artists') do
+  #   it("returns an artist's songs") do
+  #     artist = Artist.new({:name => "John Coltrane", :artist_id => nil})
+  #     artist.save()
+  #     song = Song.new({:name => "Naima", :artist_id => artist.id, :id => nil})
   #     song.save()
-  #     song2 = Song.new({:name => "Cousin Mary", :album_id => album.id, :id => nil})
+  #     song2 = Song.new({:name => "Cousin Mary", :artist_id => artist.id, :id => nil})
   #     song2.save()
-  #     expect(album.songs).to(eq([song, song2]))
+  #     expect(Artist.songs).to(eq([song, song2]))
   #   end
   # end
 end
