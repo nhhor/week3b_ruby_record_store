@@ -81,12 +81,17 @@ class Artist
   def albums
     albums = []
     results = DB.exec("SELECT album_id FROM albums_artists WHERE artist_id = #{@id};")
+    result_id_array = []
     results.each() do |result|
-      album_id = result.fetch("album_id").to_i()
-      album = DB.exec("SELECT * FROM albums WHERE id = #{album_id};")
-      name = album.first().fetch("name")
+      result_id_array.push(result.values)
+    end
+    query_of_ids =  DB.exec("SELECT * FROM albums WHERE id = #{result_id_array.join(" OR id = ")};")
+    query_of_ids.each() do |query|
+      album_id = query.fetch("id").to_i()
+      name = query.fetch("name")
       albums.push(Album.new({:name => name, :id => album_id}))
     end
     albums
   end
+
 end

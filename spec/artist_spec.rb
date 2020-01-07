@@ -51,10 +51,26 @@ describe '#Artist' do
     it("adds an album to an artist") do
       artist = Artist.new({:name => "John Coltrane", :id => nil})
       artist.save()
+
+      artist2 = Artist.new({:name => "ARTIST TO DELETE", :id => nil})
+      artist2.save()
+      album2 = Album.new({:name => "ALBUM TO DELETE", :id => nil})
+      album2.save()
+
+
       album = Album.new({:name => "A Love Supreme", :id => nil})
       album.save()
+
+      artist3 = Artist.new({:name => "ARTIST TO DELETE2", :id => nil})
+      artist.save()
+      album3 = Album.new({:name => "ALBUM TO DELETE2", :id => nil})
+      album3.save()
+
       artist.update({:album_name => "A Love Supreme"})
-      expect(artist.albums).to(eq([album]))
+
+      artist.update({:album_name => "ALBUM TO DELETE2"})
+      puts artist.albums
+      expect(artist.albums).to(eq([album, album3]))
     end
   end
   #
