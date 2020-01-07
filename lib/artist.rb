@@ -79,12 +79,14 @@ class Artist
   end
 
   def albums
+
     albums = []
     results = DB.exec("SELECT album_id FROM albums_artists WHERE artist_id = #{@id};")
     result_id_array = []
     results.each() do |result|
       result_id_array.push(result.values)
     end
+      if albums != []
     query_of_ids =  DB.exec("SELECT * FROM albums WHERE id IN (#{result_id_array.join(", ")});")
     query_of_ids.each() do |query|
       album_id = query.fetch("id").to_i()
@@ -92,6 +94,13 @@ class Artist
       albums.push(Album.new({:name => name, :id => album_id}))
     end
     albums
+  else
+    puts "error"
+    NIL
   end
+end
+
+
+
 
 end

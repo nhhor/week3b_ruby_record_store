@@ -1,6 +1,7 @@
 require('sinatra')
 require('sinatra/reloader')
 require('./lib/album')
+require('./lib/artist')
 require('./lib/song')
 require('pry')
 require ('pg')
@@ -12,8 +13,9 @@ get('/') do
   redirect to('/albums')
 end
 
-get('/albums') do
+# ALBUM ROUTING:
 
+get('/albums') do
   if params["search"]
     @albums = Album.search(params[:search])
   elsif params["sort"]
@@ -22,11 +24,6 @@ get('/albums') do
     @albums = Album.all
   end
   erb(:albums)
-
-
-
-  # @albums = Album.all
-  # erb(:albums)
 end
 
 get ('/albums/new') do
@@ -47,7 +44,6 @@ get ('/albums/:id') do
   else
     erb(:album_error)
   end
-  # erb(:album)
 end
 
 get ('/albums/:id/edit') do
@@ -75,7 +71,6 @@ get ('/albums/:id/songs/:song_id') do
     @album = Album.find(params[:id].to_i())
     erb(:album_error)
   end
-  # erb(:song)
 end
 
 post ('/albums/:id/songs') do
@@ -97,4 +92,49 @@ delete ('/albums/:id/songs/:song_id') do
   song.delete
   @album = Album.find(params[:id].to_i())
   erb(:album)
+end
+
+# ARTIST ROUTING:
+
+get('/artists') do
+  if params["search"]
+    @artist = Artist.search(params[:search])
+  elsif params["sort"]
+    @artist = Artist.sort()
+  else
+    @artist = Artist.all
+  end
+  erb(:artists)
+end
+
+get ('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  if @artist != nil
+    erb(:artist)
+  else
+    erb(:album_error)
+  end
+end
+
+get ('/artist/new') do
+  erb(:new_artist)
+end
+
+post ('/artists') do
+  name = params[:artist_name]
+  @artist = Artist.new({:name => name, :id => nil})
+  @artist.save()
+  redirect to('/artists')
+end
+
+patch ('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.update(params[:name])
+  redirect to('/artists')
+end
+
+delete ('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.delete()
+  redirect to('/artists')
 end
