@@ -42,9 +42,14 @@ end
 
 get ('/albums/:id') do
   @album = Album.find(params[:id].to_i())
-  erb(:album)
+  if @album != nil
+    erb(:album)
+  else
+    erb(:album_error)
+  end
+  # erb(:album)
 end
-#
+
 get ('/albums/:id/edit') do
   @album = Album.find(params[:id].to_i())
   erb(:edit_album)
@@ -64,7 +69,13 @@ end
 
 get ('/albums/:id/songs/:song_id') do
   @song = Song.find(params[:song_id].to_i())
-  erb(:song)
+  if @song != nil
+    erb(:song)
+  else
+    @album = Album.find(params[:id].to_i())
+    erb(:album_error)
+  end
+  # erb(:song)
 end
 
 post ('/albums/:id/songs') do
