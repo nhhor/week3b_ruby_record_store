@@ -127,6 +127,25 @@ post ('/artists') do
   redirect to('/artists')
 end
 
+# post ('/artists/:id') do
+#   name = params[:artist_name]
+#   @artist = Artist.new({:name => name, :id => nil})
+#   @artist.save()
+#   redirect to('/artists')
+# end
+
+
+post ('/artists/:id') do
+  name = params[:album_name]
+  id = params[:id]
+  @artist = Artist.find(params[:id].to_i())
+  album = Album.new({:name => name, :id => id})
+  album.save()
+  @artist.update({:album_name => name})
+  redirect to('/artists')
+end
+
+
 patch ('/artists/:id') do
   @artist = Artist.find(params[:id].to_i())
   @artist.update(params[:name])
